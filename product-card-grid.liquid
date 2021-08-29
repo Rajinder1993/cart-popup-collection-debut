@@ -1,1 +1,27 @@
 
+ {% if product.variants.size > 1 %}
+
+  <div class="varaint_block">
+
+    <ul>
+      {% for variant in product.variants %}
+      <li class="variant_bk" data-vid="{{variant.id}}">{{variant.title}}</li>
+
+      {%endfor%}
+    </ul>
+  </div>
+  {%endif%}
+<form class="form_built" action="/cart/add" method="post">
+<div class="hide">
+  {% if product.variants.size == 1 %}
+<input type="hidden" class="name" name="id" value="{{ product.variants.first.id }}" />
+{% else %}
+<select class="name" name="id">{% for variant in product.variants %}<option value="{{ variant.id }}">{{ variant.title }}</option>{% endfor %}</select>
+{% endif %}
+  </div>
+<div><button type="submit" class="btn" name="add">Add To Your Collection</button></div>  
+</form>
+
+
+======================= Place this code on card grid ================================
+
